@@ -1,0 +1,67 @@
+You are to create a simple Apple Notes–inspired MVP **web app** that runs locally first but can later be deployed live.  
+Mindset: Keep setup as simple as possible — ideally running the whole project with just `npm run dev`.  
+Follow modern best practices, but avoid adding unnecessary complexity for the MVP phase.
+
+## Goals
+From the user's perspective, MVP features include:
+- Create a note
+- Edit a note
+- Delete a note
+- Create multiple notes
+- User signup & login
+- Basic collaboration with other users (real-time editing simulation)
+
+Design should be minimal and clean, inspired by Apple Notes, but structured so it’s easy to iterate visually later.
+
+## Tech Stack Requirements
+- **Frontend**: Next.js (latest) with TypeScript
+- **Styling / Design System**: Tailwind CSS + shadcn/ui (open-source, customizable)
+- **Backend**: Next.js API routes for CRUD and collaboration logic
+- **Database**: SQLite for local development, Prisma ORM for data modeling
+- **Authentication**: NextAuth.js (email + password for local dev)
+- **Collaboration**: Socket.IO (basic working example)
+
+## Development Setup
+- The app must run locally with **`npm install && npm run dev`** as the only commands needed after cloning.
+- Prisma migrations, seed data, and WebSocket server setup should be handled automatically when running in dev mode.
+- Store SQLite DB file locally in `/prisma/dev.db`.
+- No cloud dependencies required for local dev.
+
+## Folder Structure
+Use a clean and maintainable structure:
+/components → Reusable UI components (buttons, forms, modals, note cards)
+/pages → Next.js routes
+/pages/api → API endpoints for CRUD & auth
+/lib → Utility functions (db, auth helpers)
+/styles → Tailwind config & global styles
+/prisma → Prisma schema & local DB
+
+
+## Features to Implement
+1. **Homepage**:
+   - List all notes for logged-in user
+   - Button to create a new note
+   - Click to view/edit a note
+2. **Note Editor**:
+   - Title & content fields
+   - Save button (auto-save optional)
+3. **Auth Pages**:
+   - Signup & login forms
+4. **API Endpoints**:
+   - Create note
+   - List notes
+   - Get single note
+   - Update note
+   - Delete note
+5. **Collaboration**:
+   - Basic Socket.IO setup in API route
+   - Broadcast note changes to connected clients
+
+## Additional Notes
+- UI should be minimal but visually pleasing, using shadcn/ui components.
+- Include example data for the demo user on first run.
+- Add TODO comments for any advanced features to be built later.
+- Optimize for **fast visual iteration** — components should be easily swappable or restylable.
+
+Deliver a **ready-to-run** project that works in the browser at `http://localhost:3000` after:
+`npm install && npm run dev`
