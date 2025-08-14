@@ -23,16 +23,19 @@ async function main() {
       title: 'Welcome to Notes App',
       content: 'This is your first note! You can edit it, delete it, or create new ones.',
       userId: user.id,
+      order: 0,
     },
     {
       title: 'Shopping List',
       content: '- Milk\n- Bread\n- Eggs\n- Coffee',
       userId: user.id,
+      order: 1,
     },
     {
       title: 'Meeting Notes',
       content: 'Team standup at 9 AM\nDiscuss Q4 goals\nReview project timeline',
       userId: user.id,
+      order: 2,
     },
   ]
 

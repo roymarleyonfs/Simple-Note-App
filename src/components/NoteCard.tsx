@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Edit, Trash2, Calendar } from 'lucide-react'
+import { Edit, Trash2, Calendar, GripVertical } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
 import { CollaborationIndicator } from './CollaborationIndicator'
 
@@ -13,23 +13,67 @@ interface NoteCardProps {
     content: string
     createdAt: Date
     updatedAt: Date
+    order: number
   }
   onEdit: (id: string) => void
   onDelete: (id: string) => void
+  onDragStart: (e: React.DragEvent, noteId: string) => void
+  onDragOver: (e: React.DragEvent) => void
+  onDrop: (e: React.DragEvent, noteId: string) => void
+  onDragEnter: () => void
+  onDragLeave: () => void
+  isDragging: boolean
+  isDragOver: boolean
 }
 
-export function NoteCard({ note, onEdit, onDelete }: NoteCardProps) {
+export function NoteCard({ 
+  note, 
+  onEdit, 
+  onDelete, 
+  onDragStart, 
+  onDragOver, 
+  onDrop,
+  onDragEnter,
+  onDragLeave,
+  isDragging,
+  isDragOver
+}: NoteCardProps) {
   const truncatedContent = note.content.length > 100 
     ? note.content.substring(0, 100) + '...' 
     : note.content
 
+  const handleDragStart = (e: React.DragEvent) => {
+    // Small delay to prevent accidental drags
+    setTimeout(() => {
+      onDragStart(e, note.id)
+    }, 100)
+  }
+
   return (
-    <Card className="hover:shadow-md transition-shadow cursor-pointer">
+    <Card 
+      className={`hover:shadow-md transition-all duration-200 cursor-pointer ${
+        isDragging ? 'opacity-50 scale-95' : ''
+      } ${isDragOver ? 'ring-2 ring-blue-500 ring-opacity-50' : ''}`}
+      draggable
+      onDragStart={handleDragStart}
+      onDragOver={onDragOver}
+      onDrop={(e) => onDrop(e, note.id)}
+      onDragEnter={onDragEnter}
+      onDragLeave={onDragLeave}
+    >
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
-          <CardTitle className="text-lg font-medium line-clamp-2">
-            {note.title}
-          </CardTitle>
+          <div className="flex items-start gap-2 flex-1">
+            <div 
+              className="cursor-grab active:cursor-grabbing text-gray-400 hover:text-gray-600 transition-colors"
+              onMouseDown={(e) => e.stopPropagation()}
+            >
+              <GripVertical className="h-4 w-4" />
+            </div>
+            <CardTitle className="text-lg font-medium line-clamp-2 flex-1">
+              {note.title}
+            </CardTitle>
+          </div>
           <div className="flex gap-2 ml-2">
             <Button
               variant="ghost"

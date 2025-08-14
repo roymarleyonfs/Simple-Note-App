@@ -16,13 +16,18 @@ export async function GET() {
 
     const notes = await prisma.note.findMany({
       where: { userId: session.user.id },
-      orderBy: { updatedAt: 'desc' },
+      orderBy: [
+        { pinned: 'desc' },
+        { order: 'asc' }
+      ],
       select: {
         id: true,
         title: true,
         content: true,
         createdAt: true,
         updatedAt: true,
+        order: true,
+        pinned: true,
       }
     })
 
@@ -56,11 +61,22 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Get the highest order value for this user's notes
+    const maxOrder = await prisma.note.findFirst({
+      where: { userId: session.user.id },
+      orderBy: { order: 'desc' },
+      select: { order: true }
+    })
+
+    const newOrder = (maxOrder?.order ?? -1) + 1
+
     const note = await prisma.note.create({
       data: {
         title,
         content,
         userId: session.user.id,
+        order: newOrder,
+        pinned: false,
       },
       select: {
         id: true,
@@ -68,6 +84,8 @@ export async function POST(request: NextRequest) {
         content: true,
         createdAt: true,
         updatedAt: true,
+        order: true,
+        pinned: true,
       }
     })
 

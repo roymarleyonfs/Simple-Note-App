@@ -28,6 +28,8 @@ export async function GET(
         content: true,
         createdAt: true,
         updatedAt: true,
+        order: true,
+        pinned: true,
       }
     })
 
@@ -62,7 +64,7 @@ export async function PUT(
       )
     }
 
-    const { title, content } = await request.json()
+    const { title, content, pinned, order } = await request.json()
 
     if (!title || !content) {
       return NextResponse.json(
@@ -77,8 +79,10 @@ export async function PUT(
         userId: session.user.id,
       },
       data: {
-        title,
-        content,
+        ...(title ? { title } : {}),
+        ...(content ? { content } : {}),
+        ...(typeof pinned === 'boolean' ? { pinned } : {}),
+        ...(typeof order === 'number' ? { order } : {}),
         updatedAt: new Date(),
       }
     })
@@ -98,6 +102,8 @@ export async function PUT(
         content: true,
         createdAt: true,
         updatedAt: true,
+        order: true,
+        pinned: true,
       }
     })
 

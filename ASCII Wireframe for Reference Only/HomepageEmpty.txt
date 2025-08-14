@@ -1,0 +1,22 @@
++--------------------------------------------------------------------------------+
+| ToDoDoo - Notes Dashboard                                                      |
++-------------------------+------------------------------------------------------+
+| Notes                   |                                                      |
+| ----------------------- | Recent Note History                                  |
+|  • Grocery List         | ---------------------------------------------------- |
+|  • Project Ideas        |  • [2025-08-14 14:20] Grocery List - "Milk, Bread"    |
+|  • Meeting Notes        |  • [2025-08-14 10:05] Project Ideas - "Build app"     |
+|                         |  • [2025-08-13 18:40] Meeting Notes - "Q3 targets"    |
+| ----------------------- |                                                      |
+| Quick Actions           | Quick Actions                                        |
+|  [+ New Note]           | ---------------------------------------------------- |
+|  [Search Notes]         |  [ + New Note ]  [ Search Notes ]  [ Import Notes ]   |
+|  [Import Notes]         |                                                      |
+|  [Settings]             |                                                      |
+|                         |                                                      |
+|                         |                     ( Empty State )                  |
+|                         |                                                      |
+|                         | You don't have any active notes selected.            |
+|                         | Use "Quick Actions" or select from "Recent Notes".   |
+|                         |                                                      |
++-------------------------+------------------------------------------------------+
